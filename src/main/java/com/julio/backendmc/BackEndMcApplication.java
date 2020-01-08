@@ -8,8 +8,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.julio.backendmc.domain.Categoria;
+import com.julio.backendmc.domain.Cidade;
+import com.julio.backendmc.domain.Estado;
 import com.julio.backendmc.domain.Produto;
 import com.julio.backendmc.repositories.CategoriaRepository;
+import com.julio.backendmc.repositories.CidadeRepository;
+import com.julio.backendmc.repositories.EstadoRepository;
 import com.julio.backendmc.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -20,6 +24,13 @@ public class BackEndMcApplication implements CommandLineRunner { //CommandLineRu
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	//Repositorios para categoria y estado
+	@Autowired
+	private EstadoRepository estadoRepository;
+	
+	@Autowired
+	private CidadeRepository cidadeRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(BackEndMcApplication.class, args);
@@ -48,6 +59,21 @@ public class BackEndMcApplication implements CommandLineRunner { //CommandLineRu
 		//Se hace llamado al repository para que pueda almacenar todos los productos
 		categoriaRepository.saveAll(Arrays.asList(cat1,cat2));
 		produtoRepository.saveAll(Arrays.asList(p1,p2,p3));
+
+		//------- INSTANCIACION DE ESTADOS Y CIUDADES -------
+		//Instanciar Estados
+		Estado est1 = new Estado(null,"Mina gerais");
+		Estado est2 = new Estado(null,"Sao Paulo");
+
+		//Instanciar Ciudades
+		Cidade c1 = new Cidade(null, "Uberlandia", est1);
+		Cidade c2 = new Cidade(null, "Sao Paulo", est2);
+		Cidade c3 = new Cidade(null, "Campinas", est2);
 		
+		est1.getCidades().addAll(Arrays.asList(c1));//va adicionar a las ciudades relacionadas
+		est2.getCidades().addAll(Arrays.asList(c2,c3));
+		
+		estadoRepository.saveAll(Arrays.asList(est1,est2));
+		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
 	}
 }
