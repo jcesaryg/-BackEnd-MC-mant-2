@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.julio.backendmc.domain.Categoria;
 import com.julio.backendmc.repositories.CategoriaRepository;
+import com.julio.backendmc.services.exceptions.ObjectNotFoundException;
+
 
 @Service
 public class CategoriaService {
@@ -22,6 +24,24 @@ public class CategoriaService {
     {
         //Optional<Categoria> encapsula el objeto instanciado
         Optional<Categoria> obj = repo.findById(id); //retorna el onjeto por busqueda de Id
-        return obj.orElse(null); // retorna el obj y si no lo retorna el regresara con null
+        
+        return obj.orElseThrow(()->new ObjectNotFoundException("Objeto no Encontrado Id: "+id+",Tipo: "+Categoria.class.getPackageName()));
+        		
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
