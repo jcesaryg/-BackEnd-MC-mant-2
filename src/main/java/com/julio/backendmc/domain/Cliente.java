@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.julio.backendmc.domain.enums.TipoCliente;
 
 @Entity
@@ -28,6 +29,7 @@ public class Cliente implements Serializable {
 	private String cpfOuCnpj;
 	private Integer tipo;
 	
+	@JsonManagedReference //puede serializar a los clientes con el fin de evitar el Json recursivo
 	//asociaciones con Endereco
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos =	new ArrayList<>();
