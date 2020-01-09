@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.julio.backendmc.domain.Categoria;
 import com.julio.backendmc.domain.Cidade;
+import com.julio.backendmc.domain.Cliente;
+import com.julio.backendmc.domain.Endereco;
 import com.julio.backendmc.domain.Estado;
 import com.julio.backendmc.domain.Produto;
+import com.julio.backendmc.domain.enums.TipoCliente;
 import com.julio.backendmc.repositories.CategoriaRepository;
 import com.julio.backendmc.repositories.CidadeRepository;
+import com.julio.backendmc.repositories.ClienteRepository;
+import com.julio.backendmc.repositories.EnderecoRepository;
 import com.julio.backendmc.repositories.EstadoRepository;
 import com.julio.backendmc.repositories.ProdutoRepository;
 
@@ -31,6 +36,12 @@ public class BackEndMcApplication implements CommandLineRunner { //CommandLineRu
 	
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository; 
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(BackEndMcApplication.class, args);
@@ -75,5 +86,24 @@ public class BackEndMcApplication implements CommandLineRunner { //CommandLineRu
 		
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
+		
+		//------- INSTANCIACION DE LOS NUEVOS OBJETOS -------
+		
+		//Instacia de Cliente
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "123456789", TipoCliente.PESSOAFISICA);
+		
+		//Instancia de Teledote 
+		cli1.getTelefones().addAll(Arrays.asList("984123456","994000944"));
+		
+		//Instancia de Endereco
+		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apt 303", "Jardin", "3820834", cli1, c1);
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Salas 800", "Centro", "38777012", cli1, c2); 	
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
+		
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1,e2));
+		
+		
 	}
 }
