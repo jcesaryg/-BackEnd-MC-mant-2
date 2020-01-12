@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity //Mapeamiento basico
@@ -39,7 +40,7 @@ public class Produto implements Serializable {
 			) //voy a definir quien va ser la tabla que hare muchos para muchos
 	private List<Categoria> categorias = new ArrayList<>(); //Mapeamiento de la lista de categorias informando quien va ser la tabla del banco de datos que hara de medio de campo entre las dos tablas producto y categoria
 
-	
+	@JsonIgnore
 	@OneToMany(mappedBy = "id.produto") //Asociacion inversa fue asociado id.produto id= itemPedido embebed a traves de itempedidoPK produto	
 	//pedido tiene que conocer lo item pedidos asociados a ella 
 	//Conjunto de ItemPedido nombre itens nuebo HashSet 
@@ -66,6 +67,7 @@ public class Produto implements Serializable {
 		this.preco = preco;
 	}
 	
+	@JsonIgnore
 	//creacion de un getpedidos para que pueda listar los itempedidos y agregandolos en una lista de pedidos asociados a los items 
 	public List<Pedido> getPedidos() {
 		List<Pedido> lista = new ArrayList<>();
