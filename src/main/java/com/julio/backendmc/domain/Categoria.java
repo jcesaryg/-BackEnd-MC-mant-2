@@ -10,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 public class Categoria implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -21,7 +19,6 @@ public class Categoria implements Serializable {
 	private Integer id;
 	private String nome;
 
-	@JsonManagedReference //Anotacion de Paquete Json referencia Se hace para que vea los objetos compuestos y los que quieres que vengan
 	@ManyToMany(mappedBy = "categorias")//Mapeamiento fue hecho en productos //Se crea las asociaciones de categoria con producto	
 	private List<Produto> produtos = new ArrayList<>();
 	
