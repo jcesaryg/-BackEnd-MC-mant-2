@@ -2,7 +2,9 @@ package com.julio.backendmc.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -35,6 +38,21 @@ public class Produto implements Serializable {
 		inverseJoinColumns = @JoinColumn(name="categoria_id")//Nombre de la otra llave extrangera (FK) que va referenciar la categoria
 			) //voy a definir quien va ser la tabla que hare muchos para muchos
 	private List<Categoria> categorias = new ArrayList<>(); //Mapeamiento de la lista de categorias informando quien va ser la tabla del banco de datos que hara de medio de campo entre las dos tablas producto y categoria
+
+	
+	@OneToMany(mappedBy = "id.produto") //Asociacion inversa fue asociado id.produto id= itemPedido embebed a traves de itempedidoPK produto	
+	//pedido tiene que conocer lo item pedidos asociados a ella 
+	//Conjunto de ItemPedido nombre itens nuebo HashSet 
+	private Set<ItemPedido> itens = new HashSet<>(); //set para que java me ayude a garantzar que no teng a un item pedido
+	//getter and setter con relacion al Producto 
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
+
 	
 	//Constructor vacio
 	public Produto() {
@@ -47,7 +65,16 @@ public class Produto implements Serializable {
 		this.nome = nome;
 		this.preco = preco;
 	}
-
+	
+	//creacion de un getpedidos para que pueda listar los itempedidos y agregandolos en una lista de pedidos asociados a los items 
+	public List<Pedido> getPedidos() {
+		List<Pedido> lista = new ArrayList<>();
+		for(ItemPedido x: itens)
+		{
+			lista.add(x.getPedido());
+		}
+		return lista;
+	}
 	
 	//Getter and Setter de Productos
 	public Integer getId() {
@@ -106,10 +133,5 @@ public class Produto implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-	
-	
-	
-	
-	
+	}	
 }
