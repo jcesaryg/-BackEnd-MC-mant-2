@@ -20,7 +20,7 @@ public class ClienteService {
     //Operacion capaz de buscar una categoria por Codigo
     //llamara una operacion de objeto de accesoa  datos  de tipo cateogira repository
     
-    public Cliente buscar(Integer id) 
+    public Cliente find(Integer id) 
     {
         //Optional<Cliente> encapsula el objeto instanciado
         Optional<Cliente> obj = repo.findById(id); //retorna el onjeto por busqueda de Id

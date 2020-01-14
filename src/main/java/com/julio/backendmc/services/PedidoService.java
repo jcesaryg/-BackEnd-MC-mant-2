@@ -20,7 +20,7 @@ public class PedidoService {
     //Operacion capaz de buscar una categoria por Codigo
     //llamara una operacion de objeto de accesoa  datos  de tipo cateogira repository
     
-    public Pedido buscar(Integer id) 
+    public Pedido find(Integer id) 
     {
         //Optional<Pedido> encapsula el objeto instanciado
         Optional<Pedido> obj = repo.findById(id); //retorna el onjeto por busqueda de Id

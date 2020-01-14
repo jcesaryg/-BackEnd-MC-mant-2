@@ -20,7 +20,7 @@ public class CategoriaService {
     //Operacion capaz de buscar una categoria por Codigo
     //llamara una operacion de objeto de accesoa  datos  de tipo cateogira repository
     
-    public Categoria buscar(Integer id) 
+    public Categoria find(Integer id) 
     {
         //Optional<Categoria> encapsula el objeto instanciado
         Optional<Categoria> obj = repo.findById(id); //retorna el objeto por busqueda de Id
@@ -35,20 +35,11 @@ public class CategoriaService {
     	obj.setId(null); // si setId trae algun objeto no se hara un agregado sino una actualizacion
     	return repo.save(obj); //regresara un repositario de guardar
     }
+    
+    //Metodo Para la actualizacion de una categoria
+    public Categoria update(Categoria obj)
+    {
+    	find(obj.getId()); // se llamara find por que buscara si existen los registros o sino pasara algun error
+    	return repo.save(obj);//Muy similar o igual al de insert con la diferencia que el update no lleva obj.setId(null); 
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

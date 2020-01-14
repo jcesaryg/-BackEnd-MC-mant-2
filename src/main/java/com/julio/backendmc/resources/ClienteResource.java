@@ -25,9 +25,9 @@ public class ClienteResource {
     private ClienteService service;//Accesara al Servicio
     
     @RequestMapping(value = "/{id}",method=RequestMethod.GET) //agrega al request method el id para su busqueda http://localhost:8080/categoria/1
-    public ResponseEntity<?> find(@PathVariable Integer id)
+    public ResponseEntity<Cliente> find(@PathVariable Integer id)
     {
-        Cliente obj = service.buscar(id);//Se va al servicio y se busca la categoria por el Id
+        Cliente obj = service.find(id);//Se va al servicio y se busca la categoria por el Id
         return ResponseEntity.ok().body(obj); //retorna ok = operacion fue con suceso, body = cuerpo del objeto obj que fue como categoria 
     }
 }
