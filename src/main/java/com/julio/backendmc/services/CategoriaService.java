@@ -23,10 +23,17 @@ public class CategoriaService {
     public Categoria buscar(Integer id) 
     {
         //Optional<Categoria> encapsula el objeto instanciado
-        Optional<Categoria> obj = repo.findById(id); //retorna el onjeto por busqueda de Id
+        Optional<Categoria> obj = repo.findById(id); //retorna el objeto por busqueda de Id
         
         return obj.orElseThrow(()->new ObjectNotFoundException("Objeto no Encontrado Id: "+id+",Tipo: "+Categoria.class.getPackageName()));
         		
+    }
+    
+    //agregar una categoria uzando un repositorio
+    public Categoria insert(Categoria obj) 
+    {
+    	obj.setId(null); // si setId trae algun objeto no se hara un agregado sino una actualizacion
+    	return repo.save(obj); //regresara un repositario de guardar
     }
 }
 
