@@ -4,9 +4,12 @@ package com.julio.backendmc.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+
 import com.julio.backendmc.domain.Categoria;
 import com.julio.backendmc.repositories.CategoriaRepository;
+import com.julio.backendmc.services.exceptions.DataIntegrityException;
 import com.julio.backendmc.services.exceptions.ObjectNotFoundException;
 
 
@@ -41,5 +44,17 @@ public class CategoriaService {
     {
     	find(obj.getId()); // se llamara find por que buscara si existen los registros o sino pasara algun error
     	return repo.save(obj);//Muy similar o igual al de insert con la diferencia que el update no lleva obj.setId(null); 
+    }
+    
+    //Metodo Para Eliminar una Categoria
+    public void delete(Integer id)
+    {
+    	find(id); //Buscara el Id 
+    	try {
+    		repo.deleteById(id); //Eliminara el Id Utilizando el Id
+    	}
+    	catch (DataIntegrityViolationException e) {
+    		throw new DataIntegrityException("No es posible eliminar una categoria que tiene productos.");
+		}
     }
 }

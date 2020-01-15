@@ -54,4 +54,11 @@ public class CategoriaResource {
     	obj = service.update(obj);//llama al servicio de actualizar CategoriaService.java
     	return ResponseEntity.noContent().build();
     }
+
+    @RequestMapping(value = "/{id}",method=RequestMethod.DELETE) //agrega al request method el id para su busqueda http://localhost:8080/categoria/1
+    public ResponseEntity<Categoria> delete(@PathVariable Integer id)
+    {
+    	service.delete(id); //servicio que eliminara CategoriaService.java
+    	return ResponseEntity.noContent().build();
+    }
 }
