@@ -1,6 +1,7 @@
 package com.julio.backendmc.services;
 
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +57,10 @@ public class CategoriaService {
     	catch (DataIntegrityViolationException e) {
     		throw new DataIntegrityException("No es posible eliminar una categoria que tiene productos.");
 		}
+    }
+    
+    public List<Categoria> findAll()
+    {
+    	return  repo.findAll();
     }
 }
