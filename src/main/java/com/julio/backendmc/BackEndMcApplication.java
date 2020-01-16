@@ -72,7 +72,12 @@ public class BackEndMcApplication implements CommandLineRunner { //CommandLineRu
 	
 		//Instanciamiento de las categorias
 		Categoria cat1 = new Categoria(null, "Informatica");
-		Categoria cat2 = new Categoria(null, "Escritorio"); 
+		Categoria cat2 = new Categoria(null, "Escritorio");
+		Categoria cat3 = new Categoria(null, "Casa mesa y baño");
+		Categoria cat4 = new Categoria(null, "Electronicos");
+		Categoria cat5 = new Categoria(null, "Jardineria");
+		Categoria cat6 = new Categoria(null, "Decoracion");
+		Categoria cat7 = new Categoria(null, "Perfumeria");
 		
 		//Instaciomiento de los Productos 
 		Produto p1 = new Produto(null, "Computador",2000.00);
@@ -88,7 +93,7 @@ public class BackEndMcApplication implements CommandLineRunner { //CommandLineRu
 		p3.getCategorias().addAll(Arrays.asList(cat1));
 		
 		//Se hace llamado al repository para que pueda almacenar todos los productos
-		categoriaRepository.saveAll(Arrays.asList(cat1,cat2));
+		categoriaRepository.saveAll(Arrays.asList(cat1,cat2,cat3,cat4,cat5,cat6,cat7));
 		produtoRepository.saveAll(Arrays.asList(p1,p2,p3));
 
 		//------- INSTANCIACION DE ESTADOS Y CIUDADES -------
