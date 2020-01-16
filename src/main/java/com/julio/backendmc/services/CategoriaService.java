@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.julio.backendmc.domain.Categoria;
+import com.julio.backendmc.domain.Cliente;
 import com.julio.backendmc.dto.CategoriaDTO;
 import com.julio.backendmc.repositories.CategoriaRepository;
 import com.julio.backendmc.services.exceptions.DataIntegrityException;
@@ -47,9 +48,11 @@ public class CategoriaService {
     //Metodo Para la actualizacion de una categoria
     public Categoria update(Categoria obj)
     {
-    	find(obj.getId()); // se llamara find por que buscara si existen los registros o sino pasara algun error
-    	return repo.save(obj);//Muy similar o igual al de insert con la diferencia que el update no lleva obj.setId(null); 
+     	Categoria newObj = find(obj.getId()); // se llamara find por que buscara si existen los registros o sino pasara algun error
+     	updateData(newObj, obj);
+     	return repo.save(newObj);//Muy similar o igual al de insert con la diferencia que el update no lleva obj.setId(null); 
     }
+    
     
     //Metodo Para Eliminar una Categoria
     public void delete(Integer id)
@@ -79,5 +82,10 @@ public class CategoriaService {
     public Categoria fromDTO(CategoriaDTO objDto) 
     {
     	return new Categoria(objDto.getId(), objDto.getNome());
+    }
+    
+    private void updateData (Categoria newObj, Categoria obj)
+    {
+    	newObj.setNome(obj.getNome());
     }
 }
