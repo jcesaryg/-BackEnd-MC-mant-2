@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.julio.backendmc.domain.Categoria;
+import com.julio.backendmc.dto.CategoriaDTO;
 import com.julio.backendmc.repositories.CategoriaRepository;
 import com.julio.backendmc.services.exceptions.DataIntegrityException;
 import com.julio.backendmc.services.exceptions.ObjectNotFoundException;
@@ -73,4 +74,20 @@ public class CategoriaService {
     	PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction),orderBy);//busca el PageRequest uzando 
     	return repo.findAll(pageRequest);//regresa el pagerequest despues de la busqueda
     }
+    
+    // de un Dto apartir de una CategoriaDTO voy a construir un objDto
+    public Categoria fromDTO(CategoriaDTO objDto) 
+    {
+    	return new Categoria(objDto.getId(), objDto.getNome());
+    }
 }
+
+
+
+
+
+
+
+
+
+

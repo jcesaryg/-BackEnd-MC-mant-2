@@ -5,6 +5,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -35,10 +37,11 @@ public class CategoriaResource {
         return ResponseEntity.ok().body(obj); //retorna ok = operacion fue con suceso, body = cuerpo del objeto obj que fue como categoria 
     }
     
-    //recibir una categoria en Json y agregar ese categoria
+    //recibir una categoria en Json y agregar ese categoria @Valid sirve para poder validar el metodo
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@RequestBody Categoria obj)
+    public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto)
     {
+    	Categoria obj = service.fromDTO(objDto);
     	obj = service.insert(obj); //obj recibira un servicio y agregar ver CategoriaService.java
     	
     	// va coger la url localhost:8080/categoria buildAndExpand 
@@ -47,10 +50,11 @@ public class CategoriaResource {
     	return ResponseEntity.created(uri).build();//genera codigo 201 y crea un URI	
     }
     
-    //Metodo Actualizar una  categoria
+    //Metodo Actualizar una  categoria @Valid sirve para poder validar el metodo
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)//se ingresa el Id que sera actualizado junto con el metodo que se uzara
-    public ResponseEntity<Void> update(@RequestBody Categoria obj,@PathVariable Integer id)
+    public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id)
     {
+    	Categoria obj = service.fromDTO(objDto);
     	obj.setId(id);
     	obj = service.update(obj);//llama al servicio de actualizar CategoriaService.java
     	return ResponseEntity.noContent().build();
