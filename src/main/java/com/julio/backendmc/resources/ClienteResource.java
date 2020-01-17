@@ -1,6 +1,7 @@
 package com.julio.backendmc.resources;
 
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.julio.backendmc.domain.Cliente;
 import com.julio.backendmc.dto.ClienteDTO;
+import com.julio.backendmc.dto.ClienteNewDTO;
 import com.julio.backendmc.services.ClienteService;
 
 
@@ -35,6 +38,21 @@ public class ClienteResource {
         return ResponseEntity.ok().body(obj); //retorna ok = operacion fue con suceso, body = cuerpo del objeto obj que fue como categoria 
     }
    
+    //Metodo Post de cliente Resource que llama a  ClienteNewDTO.java
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto)
+    {
+    	Cliente obj = service.fromDTO(objDto);
+    	obj = service.insert(obj); //obj recibira un servicio y agregar ver ClienteService.java
+    	
+    	// va coger la url localhost:8080/categoria buildAndExpand 
+    	URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+    			.path("/{id}").buildAndExpand(obj.getId()).toUri();// coge la url del nuevo recurso que fue agragado
+    	return ResponseEntity.created(uri).build();//genera codigo 201 y crea un URI	
+    }
+    
+    
+    
     //Metodo Actualizar una  categoria @Valid sirve para poder validar el metodo
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)//se ingresa el Id que sera actualizado junto con el metodo que se uzara
     public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO objDto, @PathVariable Integer id)
