@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -30,7 +31,8 @@ public class Cliente implements Serializable {
 	private Integer tipo;
 	
 	//asociaciones con Endereco
-	@OneToMany(mappedBy = "cliente")
+	//cascade=CascadeType.ALL Realiza la operacion en cascada, si elimino a un cliente el va borrar a los enderecos tambien
+	@OneToMany(mappedBy = "cliente", cascade=CascadeType.ALL)
 	private List<Endereco> enderecos =	new ArrayList<>();
 	
 	@ElementCollection
