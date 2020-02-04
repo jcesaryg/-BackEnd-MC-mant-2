@@ -2,36 +2,55 @@ package com.julio.backendmc.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.julio.backendmc.services.validation.ClienteInsert;
+
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	
-	//Datos de cliente => datos de cliente domain menos Id  
+	@NotEmpty(message="LLenado Obligatorio")
+	@Length(min=5, max=120, message="El tamaño debe ser entre 5 y 120 caracteres")
 	private String nome;
-	private String email;
-	private String cpfOuCnpj;
-	private Integer tipo;
 
-	//Datos de Endereco => datos de Endereco domain menos Id
+	@NotEmpty(message="Llenado Obligatorio")
+	@Email(message="Email inválido")
+	private String email;
+
+	@NotEmpty(message="Llenado Obligatorio")
+	private String cpfOuCnpj;
+
+	private Integer tipo;
+	
+	@NotEmpty(message="Llenado Obligatorio")
 	private String logradouro;
+
+	@NotEmpty(message="Llenado Obligatorio")
 	private String numero;
+
 	private String complemento;
+
 	private String bairro;
+
+	@NotEmpty(message="Llenado Obligatorio")
 	private String cep;
 	
-	//Datos de Telefone
+	@NotEmpty(message="Llenado Obligatorio")
 	private String telefone1;
-	private String telefone2;
-	private String telefone3;
-	
-	private Integer cidadeId;
 
-	//Constructor vacio
+	private String telefone2;
+	
+	private String telefone3;
+
+	private Integer cidadeId;
+	
 	public ClienteNewDTO() {
 	}
-	
-	// Getters and Setters de los atributos creados
-	
+
 	public String getNome() {
 		return nome;
 	}

@@ -4,27 +4,28 @@ import java.io.Serializable;
 
 public class FieldMessage implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	private String fieldaName;
+
+	private String fieldName;
 	private String message;
-	
-	//Constructores
+
+	// Constructores
 	public FieldMessage() {
 	}
 
-	public FieldMessage(String fieldaName, String message) {
+	public FieldMessage(String fieldName, String message) {
 		super();
-		this.fieldaName = fieldaName;
+		this.fieldName = fieldName;
 		this.message = message;
 	}
-	
-	//generar Get y Set
-	public String getFieldaName() {
-		return fieldaName;
+
+	// generar Get y Set
+
+	public String getFieldName() {
+		return fieldName;
 	}
 
-	public void setFieldaName(String fieldaName) {
-		this.fieldaName = fieldaName;
+	public void setFieldName(String fieldName) {
+		this.fieldName = fieldName;
 	}
 
 	public String getMessage() {
@@ -34,8 +35,5 @@ public class FieldMessage implements Serializable {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
-	
 
-	
 }
