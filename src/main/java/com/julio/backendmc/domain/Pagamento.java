@@ -11,35 +11,38 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.julio.backendmc.domain.enums.EstadoPagamento;
 
-@Entity //Anotacion
-@Inheritance(strategy = InheritanceType.JOINED)//Mapeamiento de Enum
-public abstract class Pagamento implements Serializable { // abstract para garantizar que no se consiga instanciar objetos de tipo pagamento ;implements = Herencia
+@Entity // Anotacion
+@Inheritance(strategy = InheritanceType.JOINED) // Mapeamiento de Enum
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type") // mi clase de pagamento va tener una campo adicional @Type
+public abstract class Pagamento implements Serializable { // abstract para garantizar que no se consiga instanciar
+															// objetos de tipo pagamento ;implements = Herencia
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	private Integer id;
 	private Integer estado;
-	
-	//---------Asociaciones---------
-	@JsonIgnore	
+
+	// ---------Asociaciones---------
+	@JsonIgnore
 	@OneToOne
-	@JoinColumn(name="pedido_id")
+	@JoinColumn(name = "pedido_id")
 	@MapsId
 	private Pedido pedido;
-	
+
 	public Pagamento() {
 	}
 
 	public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
 		super();
 		this.id = id;
-		this.estado =(estado == null) ? null : estado.getCod();
+		this.estado = (estado == null) ? null : estado.getCod();
 		this.pedido = pedido;
 	}
-	
-	//getter and Setter
+
+	// getter and Setter
 
 	public Integer getId() {
 		return id;
@@ -89,6 +92,5 @@ public abstract class Pagamento implements Serializable { // abstract para garan
 			return false;
 		return true;
 	}
-	
-	
+
 }
