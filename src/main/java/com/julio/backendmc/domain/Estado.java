@@ -18,18 +18,17 @@ public class Estado implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-	
-	
-	@JsonIgnore
-	//instanciacion y mapeamiento
-	//Un Estado tienen muhcas ciudades
-	@OneToMany (mappedBy = "estado") //Mapeamietno inverso el que fue mapeado del otro lado fue estado
-	private List<Cidade> cidades= new ArrayList<>();
 
-	//Constructores
+	@JsonIgnore
+	// instanciacion y mapeamiento
+	// Un Estado tienen muhcas ciudades
+	@OneToMany(mappedBy = "estado") // Mapeamietno inverso el que fue mapeado del otro lado fue estado
+	private List<Cidade> cidades = new ArrayList<>();
+
+	// Constructores
 	public Estado() {
 	}
 
@@ -39,7 +38,7 @@ public class Estado implements Serializable {
 		this.nome = nome;
 	}
 
-	//Getters and Setter
+	// Getters and Setter
 	public Integer getId() {
 		return id;
 	}
@@ -64,8 +63,8 @@ public class Estado implements Serializable {
 		this.cidades = cidades;
 	}
 
-	//Hash code and equals
-	
+	// Hash code and equals
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -90,10 +89,5 @@ public class Estado implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
-	
+
 }

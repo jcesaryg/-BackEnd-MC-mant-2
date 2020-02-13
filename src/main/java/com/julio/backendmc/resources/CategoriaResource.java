@@ -1,6 +1,5 @@
 package com.julio.backendmc.resources;
 
-
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,69 +21,68 @@ import com.julio.backendmc.domain.Categoria;
 import com.julio.backendmc.dto.CategoriaDTO;
 import com.julio.backendmc.services.CategoriaService;
 
-
-@RestController //Controlador Rest
-@RequestMapping(value="/categorias")//RequestMapping Evalua y regresa el Url que sera evaluado http://localhost:8080/categoria
+@RestController // Controlador Rest
+@RequestMapping(value = "/categorias") // RequestMapping Evalua y regresa el Url que sera evaluado
+										// http://localhost:8080/categoria
 public class CategoriaResource {
-    
-    @Autowired //Instacion Automatica el objeto
-    private CategoriaService service;//Accesara al Servicio
-    
-    @RequestMapping(value = "/{id}",method=RequestMethod.GET) //agrega al request method el id para su busqueda http://localhost:8080/categoria/1
-    public ResponseEntity<Categoria> find(@PathVariable Integer id)
-    {
-        Categoria obj = service.find(id);//Se va al servicio y se busca la categoria por el Id
-        return ResponseEntity.ok().body(obj); //retorna ok = operacion fue con suceso, body = cuerpo del objeto obj que fue como categoria 
-    }
-    
-    //recibir una categoria en Json y agregar ese categoria @Valid sirve para poder validar el metodo
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto)
-    {
-    	Categoria obj = service.fromDTO(objDto);
-    	obj = service.insert(obj); //obj recibira un servicio y agregar ver CategoriaService.java
-    	
-    	// va coger la url localhost:8080/categoria buildAndExpand 
-    	URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-    			.path("/{id}").buildAndExpand(obj.getId()).toUri();// coge la url del nuevo recurso que fue agragado
-    	return ResponseEntity.created(uri).build();//genera codigo 201 y crea un URI	
-    }
-    
-    //Metodo Actualizar una  categoria @Valid sirve para poder validar el metodo
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)//se ingresa el Id que sera actualizado junto con el metodo que se uzara
-    public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id)
-    {
-    	Categoria obj = service.fromDTO(objDto);
-    	obj.setId(id);
-    	obj = service.update(obj);//llama al servicio de actualizar CategoriaService.java
-    	return ResponseEntity.noContent().build();
-    }
 
-    @RequestMapping(value = "/{id}",method=RequestMethod.DELETE) //agrega al request method el id para su busqueda http://localhost:8080/categoria/1
-    public ResponseEntity<Categoria> delete(@PathVariable Integer id)
-    {
-    	service.delete(id); //servicio que eliminara CategoriaService.java
-    	return ResponseEntity.noContent().build();
-    }
-    
-    @RequestMapping(method=RequestMethod.GET) //retornara todas las categorias
-    public ResponseEntity<List<CategoriaDTO>> findAll()
-    {
-        List<Categoria> list = service.findAll();//listara todas las categorias 
-        List<CategoriaDTO> listDto = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
-        return ResponseEntity.ok().body(listDto); //retorna ok = operacion fue con suceso, body = cuerpo del objeto obj que fue como categoria 
-    }
-    
-    //localhost:8080/categorias/page?linesPerPage=3&page=1&direction=DESC
-    @RequestMapping(value="/page", method=RequestMethod.GET) //retornara todas las categorias en un page
-    public ResponseEntity<Page<CategoriaDTO>> findPage(
-    		@RequestParam(value="page", defaultValue = "0") Integer page,
-    		@RequestParam(value="linesPerPage", defaultValue = "24") Integer linesPerPage, 
-    		@RequestParam(value="orderBy", defaultValue = "nome") String orderBy,
-    		@RequestParam(value="direction", defaultValue = "ASC") String direction)
-    {
-        Page<Categoria> list = service.findPage(page, linesPerPage, orderBy, direction);//listara todas las categorias 
-        Page<CategoriaDTO> listDto = list.map(obj -> new CategoriaDTO(obj)); 
-        return ResponseEntity.ok().body(listDto); 
-    }
+	@Autowired // Instacion Automatica el objeto
+	private CategoriaService service;// Accesara al Servicio
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET) // agrega al request method el id para su busqueda
+																	// http://localhost:8080/categoria/1
+	public ResponseEntity<Categoria> find(@PathVariable Integer id) {
+		Categoria obj = service.find(id);// Se va al servicio y se busca la categoria por el Id
+		return ResponseEntity.ok().body(obj); // retorna ok = operacion fue con suceso, body = cuerpo del objeto obj que
+												// fue como categoria
+	}
+
+	// recibir una categoria en Json y agregar ese categoria @Valid sirve para poder
+	// validar el metodo
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto) {
+		Categoria obj = service.fromDTO(objDto);
+		obj = service.insert(obj); // obj recibira un servicio y agregar ver CategoriaService.java
+
+		// va coger la url localhost:8080/categoria buildAndExpand
+		// coge la url del nuevo recurso que fue agragado
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();// genera codigo 201 y crea un URI
+	}
+
+	// Metodo Actualizar una categoria @Valid sirve para poder validar el metodo
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT) // se ingresa el Id que sera actualizado junto con el
+																	// metodo que se uzara
+	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id) {
+		Categoria obj = service.fromDTO(objDto);
+		obj.setId(id);
+		obj = service.update(obj);// llama al servicio de actualizar CategoriaService.java
+		return ResponseEntity.noContent().build();
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE) // agrega al request method el id para su busqueda
+																	// http://localhost:8080/categoria/1
+	public ResponseEntity<Categoria> delete(@PathVariable Integer id) {
+		service.delete(id); // servicio que eliminara CategoriaService.java
+		return ResponseEntity.noContent().build();
+	}
+
+	@RequestMapping(method = RequestMethod.GET) // retornara todas las categorias
+	public ResponseEntity<List<CategoriaDTO>> findAll() {
+		List<Categoria> list = service.findAll();// listara todas las categorias
+		List<CategoriaDTO> listDto = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto); // retorna ok = operacion fue con suceso, body = cuerpo del objeto obj
+													// que fue como categoria
+	}
+
+	// localhost:8080/categorias/page?linesPerPage=3&page=1&direction=DESC
+	@RequestMapping(value = "/page", method = RequestMethod.GET) // retornara todas las categorias en un page
+	public ResponseEntity<Page<CategoriaDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
+			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+		Page<Categoria> list = service.findPage(page, linesPerPage, orderBy, direction);// listara todas las categorias
+		Page<CategoriaDTO> listDto = list.map(obj -> new CategoriaDTO(obj));
+		return ResponseEntity.ok().body(listDto);
+	}
 }

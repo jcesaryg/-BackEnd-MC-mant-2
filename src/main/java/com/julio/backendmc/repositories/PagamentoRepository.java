@@ -5,10 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import com.julio.backendmc.domain.Pagamento;
 
-
 //Buscara datos de categoria JpaRepository<nombre de Dominio, Tipo de la variable en este caso ID>
 //Objeto de la capa de acceso a datos (REPOSITORY)
 @Repository
-public interface PagamentoRepository extends JpaRepository<Pagamento, Integer>{
-  
+public interface PagamentoRepository extends JpaRepository<Pagamento, Integer> {
+
 }

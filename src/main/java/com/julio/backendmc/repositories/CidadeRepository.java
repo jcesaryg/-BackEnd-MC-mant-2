@@ -8,6 +8,6 @@ import com.julio.backendmc.domain.Cidade;
 //Buscara datos de categoria JpaRepository<nombre de Dominio, Tipo de la variable en este caso ID>
 //Objeto de la capa de acceso a datos (REPOSITORY)
 @Repository
-public interface CidadeRepository extends JpaRepository<Cidade, Integer>{
-  
+public interface CidadeRepository extends JpaRepository<Cidade, Integer> {
+
 }

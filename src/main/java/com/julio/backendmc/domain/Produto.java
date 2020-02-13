@@ -17,34 +17,39 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
-@Entity //Mapeamiento basico
+@Entity // Mapeamiento basico
 public class Produto implements Serializable {
 
-	private static final long serialVersionUID = 1L;	
-	
+	private static final long serialVersionUID = 1L;
+
 	@Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private Double preco;
-	
-	
-	//Asociacion de Producto con categoria
-	@JsonIgnore
-	@ManyToMany //Relacionamiento muchos para muchos
-	@JoinTable (name = "PRODUTO__CATEGORIA", //Nombre de la tabla
-		joinColumns = @JoinColumn(name="produto_id"), //nombre de campo correspondiente al codigo del producto FK
-		inverseJoinColumns = @JoinColumn(name="categoria_id")//Nombre de la otra llave extrangera (FK) que va referenciar la categoria
-			) //voy a definir quien va ser la tabla que hare muchos para muchos
-	private List<Categoria> categorias = new ArrayList<>(); //Mapeamiento de la lista de categorias informando quien va ser la tabla del banco de datos que hara de medio de campo entre las dos tablas producto y categoria
 
+	// Asociacion de Producto con categoria
 	@JsonIgnore
-	@OneToMany(mappedBy = "id.produto") //Asociacion inversa fue asociado id.produto id= itemPedido embebed a traves de itempedidoPK produto	
-	//pedido tiene que conocer lo item pedidos asociados a ella 
-	//Conjunto de ItemPedido nombre itens nuebo HashSet 
-	private Set<ItemPedido> itens = new HashSet<>(); //set para que java me ayude a garantzar que no teng a un item pedido
-	//getter and setter con relacion al Producto 
+	@ManyToMany // Relacionamiento muchos para muchos
+	@JoinTable(name = "PRODUTO__CATEGORIA", // Nombre de la tabla
+			joinColumns = @JoinColumn(name = "produto_id"), // nombre de campo correspondiente al codigo del producto FK
+			inverseJoinColumns = @JoinColumn(name = "categoria_id")// Nombre de la otra llave extrangera (FK) que va
+																	// referenciar la categoria
+	) // voy a definir quien va ser la tabla que hare muchos para muchos
+
+	// Mapeamiento de la lista de categorias informando quien va ser la tabla del
+	// banco de datos que hara de medio de campo entre las dos tablas producto y
+	// categoria
+	private List<Categoria> categorias = new ArrayList<>();
+	@JsonIgnore
+	@OneToMany(mappedBy = "id.produto") // Asociacion inversa fue asociado id.produto id= itemPedido embebed a traves de
+										// itempedidoPK produto
+	// pedido tiene que conocer lo item pedidos asociados a ella
+	// Conjunto de ItemPedido nombre itens nuebo HashSet
+	private Set<ItemPedido> itens = new HashSet<>(); // set para que java me ayude a garantzar que no teng a un item
+														// pedido
+	// getter and setter con relacion al Producto
+
 	public Set<ItemPedido> getItens() {
 		return itens;
 	}
@@ -53,31 +58,30 @@ public class Produto implements Serializable {
 		this.itens = itens;
 	}
 
-	
-	//Constructor vacio
+	// Constructor vacio
 	public Produto() {
 	}
 
-	//Constructor con parametros
+	// Constructor con parametros
 	public Produto(Integer id, String nome, Double preco) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
 	}
-	
+
 	@JsonIgnore
-	//creacion de un getpedidos para que pueda listar los itempedidos y agregandolos en una lista de pedidos asociados a los items 
+	// creacion de un getpedidos para que pueda listar los itempedidos y
+	// agregandolos en una lista de pedidos asociados a los items
 	public List<Pedido> getPedidos() {
 		List<Pedido> lista = new ArrayList<>();
-		for(ItemPedido x: itens)
-		{
+		for (ItemPedido x : itens) {
 			lista.add(x.getPedido());
 		}
 		return lista;
 	}
-	
-	//Getter and Setter de Productos
+
+	// Getter and Setter de Productos
 	public Integer getId() {
 		return id;
 	}
@@ -118,7 +122,7 @@ public class Produto implements Serializable {
 		return result;
 	}
 
-	//Hash code and equals
+	// Hash code and equals
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -134,5 +138,5 @@ public class Produto implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}	
+	}
 }

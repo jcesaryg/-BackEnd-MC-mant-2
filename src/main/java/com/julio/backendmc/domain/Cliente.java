@@ -22,44 +22,45 @@ import com.julio.backendmc.domain.enums.TipoCliente;
 @Entity
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-	
+
 	@Column(unique = true)
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
-	
-	//asociaciones con Endereco
-	//cascade=CascadeType.ALL Realiza la operacion en cascada, si elimino a un cliente el va borrar a los enderecos tambien
-	@OneToMany(mappedBy = "cliente", cascade=CascadeType.ALL)
-	private List<Endereco> enderecos =	new ArrayList<>();
-	
+
+	// asociaciones con Endereco
+	// cascade=CascadeType.ALL Realiza la operacion en cascada, si elimino a un
+	// cliente el va borrar a los enderecos tambien
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	private List<Endereco> enderecos = new ArrayList<>();
+
 	@ElementCollection
-	@CollectionTable(name="TELEFONE")
+	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
-	private List<Pedido> pedidos = new ArrayList<>();//Cliente esta asociada con pedidos es bidireccional
-	
-	public Cliente() {		
+	private List<Pedido> pedidos = new ArrayList<>();// Cliente esta asociada con pedidos es bidireccional
+
+	public Cliente() {
 	}
-	
-	//Constructores
+
+	// Constructores
 	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-					//si tipo fuese = a null atribuire null caso contrario obtendre el codigo
-		this.tipo = (tipo==null) ? null :  tipo.getCod();
+		// si tipo fuese = a null atribuire null caso contrario obtendre el codigo
+		this.tipo = (tipo == null) ? null : tipo.getCod();
 	}
-	
+
 	// Getter and Setter
 
 	public Integer getId() {
@@ -117,7 +118,7 @@ public class Cliente implements Serializable {
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
 	}
-	
+
 	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
@@ -150,5 +151,5 @@ public class Cliente implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 }

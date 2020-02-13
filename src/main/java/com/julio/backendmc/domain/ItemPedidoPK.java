@@ -7,32 +7,35 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Embeddable
-public class ItemPedidoPK implements Serializable{
+public class ItemPedidoPK implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	@ManyToOne //Muchos a Uno
-	@JoinColumn(name = "pedido_id") //la llave extranjera FK va ser pedido_id
+
+	@ManyToOne // Muchos a Uno
+	@JoinColumn(name = "pedido_id") // la llave extranjera FK va ser pedido_id
 	private Pedido pedido;
-	
-	@ManyToOne //Muchos a Uno 
-	@JoinColumn(name = "produto_id") //la llave extrajera FK va ser producto_id
+
+	@ManyToOne // Muchos a Uno
+	@JoinColumn(name = "produto_id") // la llave extrajera FK va ser producto_id
 	private Produto produto;
-	
-	///GETTER AND SETTERS
+
+	/// GETTER AND SETTERS
 	public Pedido getPedido() {
 		return pedido;
 	}
+
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
+
 	public Produto getProduto() {
 		return produto;
 	}
+
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
-	
-	//HASH CODE Y EQUALS 
+
+	// HASH CODE Y EQUALS
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -41,6 +44,7 @@ public class ItemPedidoPK implements Serializable{
 		result = prime * result + ((produto == null) ? 0 : produto.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

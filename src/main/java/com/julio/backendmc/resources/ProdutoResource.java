@@ -34,8 +34,7 @@ public class ProdutoResource {
 
 	@RequestMapping(method = RequestMethod.GET) // retornara todas las categorias en un page
 
-	public ResponseEntity<Page<ProdutoDTO>> findPage(
-			@RequestParam(value = "nome", defaultValue = "") String nome,
+	public ResponseEntity<Page<ProdutoDTO>> findPage(@RequestParam(value = "nome", defaultValue = "") String nome,
 			@RequestParam(value = "categorias", defaultValue = "") String categorias,
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
@@ -47,4 +46,4 @@ public class ProdutoResource {
 		Page<ProdutoDTO> listDto = list.map(obj -> new ProdutoDTO(obj));
 		return ResponseEntity.ok().body(listDto);
 	}
-}	
+}

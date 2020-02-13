@@ -12,42 +12,42 @@ import com.julio.backendmc.services.validation.ClienteInsert;
 @ClienteInsert
 public class ClienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	@NotEmpty(message="LLenado Obligatorio")
-	@Length(min=5, max=120, message="El tamaño debe ser entre 5 y 120 caracteres")
+
+	@NotEmpty(message = "LLenado Obligatorio")
+	@Length(min = 5, max = 120, message = "El tamaño debe ser entre 5 y 120 caracteres")
 	private String nome;
 
-	@NotEmpty(message="Llenado Obligatorio")
-	@Email(message="Email inválido")
+	@NotEmpty(message = "Llenado Obligatorio")
+	@Email(message = "Email inválido")
 	private String email;
 
-	@NotEmpty(message="Llenado Obligatorio")
+	@NotEmpty(message = "Llenado Obligatorio")
 	private String cpfOuCnpj;
 
 	private Integer tipo;
-	
-	@NotEmpty(message="Llenado Obligatorio")
+
+	@NotEmpty(message = "Llenado Obligatorio")
 	private String logradouro;
 
-	@NotEmpty(message="Llenado Obligatorio")
+	@NotEmpty(message = "Llenado Obligatorio")
 	private String numero;
 
 	private String complemento;
 
 	private String bairro;
 
-	@NotEmpty(message="Llenado Obligatorio")
+	@NotEmpty(message = "Llenado Obligatorio")
 	private String cep;
-	
-	@NotEmpty(message="Llenado Obligatorio")
+
+	@NotEmpty(message = "Llenado Obligatorio")
 	private String telefone1;
 
 	private String telefone2;
-	
+
 	private String telefone3;
 
 	private Integer cidadeId;
-	
+
 	public ClienteNewDTO() {
 	}
 

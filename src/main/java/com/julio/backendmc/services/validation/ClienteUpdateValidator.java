@@ -34,7 +34,8 @@ public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate
 
 		// permite recuperar el id del cliente http://localhost:8080/clientes/2
 		@SuppressWarnings("unchecked")
-		Map<String, String> map = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+		Map<String, String> map = (Map<String, String>) request
+				.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
 		Integer uriId = Integer.parseInt(map.get("id"));
 
 		List<FieldMessage> list = new ArrayList<>();

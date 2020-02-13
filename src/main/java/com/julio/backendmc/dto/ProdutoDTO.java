@@ -15,13 +15,13 @@ public class ProdutoDTO implements Serializable {
 	public ProdutoDTO() {
 	}
 
-	//Constructor 
+	// Constructor
 	public ProdutoDTO(Produto obj) {
 		id = obj.getId();
 		nome = obj.getNome();
 		preco = obj.getPreco();
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}

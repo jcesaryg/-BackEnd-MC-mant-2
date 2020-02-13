@@ -16,7 +16,10 @@ import com.julio.backendmc.domain.enums.EstadoPagamento;
 
 @Entity // Anotacion
 @Inheritance(strategy = InheritanceType.JOINED) // Mapeamiento de Enum
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type") // mi clase de pagamento va tener una campo adicional @Type
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type") // mi clase de
+																									// pagamento va
+																									// tener una campo
+																									// adicional @Type
 public abstract class Pagamento implements Serializable { // abstract para garantizar que no se consiga instanciar
 															// objetos de tipo pagamento ;implements = Herencia
 	private static final long serialVersionUID = 1L;
