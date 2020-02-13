@@ -10,17 +10,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class ItemPedido implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@JsonIgnore
-	@EmbeddedId //Id Embebido y de tipo auxiliar 
+	@EmbeddedId // Id Embebido y de tipo auxiliar
 	private ItemPedidoPK id = new ItemPedidoPK();
-	
-	
 	private Double desconto;
 	private Integer quantidade;
 	private Double preco;
-	
-	public ItemPedido(){
+
+	public ItemPedido() {
 	}
 
 	public ItemPedido(Pedido pedido, Produto produto, Double desconto, Integer quantidade, Double preco) {
@@ -32,18 +30,23 @@ public class ItemPedido implements Serializable {
 		this.preco = preco;
 	}
 
+	// Retorna el subtotal por el item del pedido
+	public double getSubTotal() {
+		return (preco - desconto) * quantidade;
+	}
+
 	@JsonIgnore
-	//getter and setter de Pedido y producto
-	//para tener acceso a pedido y producto fuera de sus respesctivas clases
-	public Pedido getPedido(){
+	// getter and setter de Pedido y producto
+	// para tener acceso a pedido y producto fuera de sus respesctivas clases
+	public Pedido getPedido() {
 		return id.getPedido();
 	}
 
 	public Produto getProduto() {
 		return id.getProduto();
 	}
-	
-	//Getter and Setters
+
+	// Getter and Setters
 
 	public ItemPedidoPK getId() {
 		return id;
@@ -77,8 +80,8 @@ public class ItemPedido implements Serializable {
 		this.preco = preco;
 	}
 
-	//Hash code and equals
-	
+	// Hash code and equals
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

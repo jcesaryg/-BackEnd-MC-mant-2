@@ -20,31 +20,32 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 public class Pedido implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
+
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date instante;
-	
-	@OneToOne(cascade=CascadeType.ALL,mappedBy = "pedido")
+
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
 	private Pagamento pagamento;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "endereco_de_entrega_id")
 	private Endereco enderecoDeEntrega;
-	
-	
-	@OneToMany(mappedBy = "id.pedido") //Asociacion inversa fue asociado id.pedido id= itemPedido embebed a traves de itempedidoPK pedido	
-	//pedido tiene que conocer lo item pedidos asociados a ella 
-	//Conjunto de ItemPedido nombre itens nuebo HashSet 
-	private Set<ItemPedido> itens = new HashSet<>(); //set para que java me ayude a garantzar que no teng a un item pedido
-	
+
+	@OneToMany(mappedBy = "id.pedido") // Asociacion inversa fue asociado id.pedido id= itemPedido embebed a traves de
+										// itempedidoPK pedido
+	// pedido tiene que conocer lo item pedidos asociados a ella
+	// Conjunto de ItemPedido nombre itens nuebo HashSet
+	private Set<ItemPedido> itens = new HashSet<>(); // set para que java me ayude a garantzar que no teng a un item
+														// pedido
+
 	// getter y setter con realacion a pedido
 	public Set<ItemPedido> getItens() {
 		return itens;
@@ -53,20 +54,29 @@ public class Pedido implements Serializable {
 	public void setItens(Set<ItemPedido> itens) {
 		this.itens = itens;
 	}
-	
-	//Constructores
-	public Pedido(){
+
+	// Constructores
+	public Pedido() {
 	}
-	
-	public Pedido(Integer id, Date instante,  Cliente cliente, Endereco enderecoDeEntrega) {
+
+	public Pedido(Integer id, Date instante, Cliente cliente, Endereco enderecoDeEntrega) {
 		super();
 		this.id = id;
 		this.instante = instante;
 		this.cliente = cliente;
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
-	
-	//Getter and Setters
+
+	// retorna el valor Total de los Items
+	public double getValorTotal() {
+		double soma = 0.0;
+		for (ItemPedido ip : itens) {
+			soma = soma + ip.getSubTotal();
+		}
+		return soma;
+	}
+
+	// Getter and Setters
 
 	public Integer getId() {
 		return id;
