@@ -9,7 +9,7 @@ public enum EstadoPagamento {
 	private String descricao;
 
 	// Constructor de tipo enumerado es private
-	private EstadoPagamento(int cod, String descripcao) {
+	private EstadoPagamento(int cod, String descricao) {
 		this.cod = cod;
 		this.descricao = descricao;
 	}
