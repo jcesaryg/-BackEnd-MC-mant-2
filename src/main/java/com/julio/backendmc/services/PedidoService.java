@@ -38,6 +38,9 @@ public class PedidoService {
 	@Autowired
 	private ClienteService clienteService;
 
+	@Autowired
+	private EmailService emailService;
+
 	// Operacion capaz de buscar una categoria por Codigo
 	// llamara una operacion de objeto de accesoa datos de tipo cateogira repository
 
@@ -71,7 +74,7 @@ public class PedidoService {
 		}
 		itemPedidoRepository.saveAll(obj.getItens());
 
-		System.out.print(obj);
+		emailService.sendOrderConfirmationEmail(obj);
 
 		return obj;
 	}

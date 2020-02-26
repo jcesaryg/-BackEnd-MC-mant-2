@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.julio.backendmc.services.DBService;
+import com.julio.backendmc.services.EmailService;
+import com.julio.backendmc.services.MockEmailService;
 
 @Configuration
 @Profile("test") // Se escoje a test de application.properties
@@ -22,5 +24,10 @@ public class TestConfig {
 		dbService.instantiateTestDatabase();
 		return true;
 
+	}
+
+	@Bean
+	public EmailService emailService() {
+		return new MockEmailService();
 	}
 }
