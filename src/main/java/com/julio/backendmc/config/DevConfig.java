@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.julio.backendmc.services.DBService;
+import com.julio.backendmc.services.EmailService;
+import com.julio.backendmc.services.SmtpEmailService;
 
 @Configuration
 @Profile("dev") // Se escoje a test de application.properties
@@ -19,17 +21,21 @@ public class DevConfig {
 
 	@Value("${spring.jpa.hibernate.ddl-auto}")
 	private String strategy;
-	
+
 	@Bean
 	public boolean instantiateDatabase() throws ParseException {
 
-		if (!"create".equals(strategy))
-		{
+		if (!"create".equals(strategy)) {
 			return false;
 		}
-		
+
 		dbService.instantiateTestDatabase();
 		return true;
 
+	}
+
+	@Bean
+	public EmailService emailService() {
+		return new SmtpEmailService();
 	}
 }

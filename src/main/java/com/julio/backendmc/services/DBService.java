@@ -130,7 +130,7 @@ public class DBService {
 		// ------- INSTANCIACION DE LOS NUEVOS OBJETOS -------
 
 		// Instacia de Cliente
-		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "123456789", TipoCliente.PESSOAFISICA);
+		Cliente cli1 = new Cliente(null, "Maria Silva", "julito.entey@gmail.com", "123456789", TipoCliente.PESSOAFISICA);
 
 		// Instancia de Teledote
 		cli1.getTelefones().addAll(Arrays.asList("984123456", "994000944"));
