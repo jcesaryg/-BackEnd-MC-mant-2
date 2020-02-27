@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.julio.backendmc.domain.Categoria;
@@ -32,6 +33,9 @@ import com.julio.backendmc.repositories.ProdutoRepository;
 
 @Service
 public class DBService {
+
+	@Autowired
+	private BCryptPasswordEncoder pe;
 
 	@Autowired
 	private CategoriaRepository categoriaRepository; // Dependencia
@@ -130,7 +134,8 @@ public class DBService {
 		// ------- INSTANCIACION DE LOS NUEVOS OBJETOS -------
 
 		// Instacia de Cliente
-		Cliente cli1 = new Cliente(null, "Maria Silva", "julito.entey@gmail.com", "123456789", TipoCliente.PESSOAFISICA);
+		Cliente cli1 = new Cliente(null, "Maria Silva", "julito.entey@gmail.com", "123456789", TipoCliente.PESSOAFISICA,
+				pe.encode("123"));
 
 		// Instancia de Teledote
 		cli1.getTelefones().addAll(Arrays.asList("984123456", "994000944"));
