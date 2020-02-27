@@ -20,6 +20,7 @@ import com.julio.backendmc.domain.PagamentoComCartao;
 import com.julio.backendmc.domain.Pedido;
 import com.julio.backendmc.domain.Produto;
 import com.julio.backendmc.domain.enums.EstadoPagamento;
+import com.julio.backendmc.domain.enums.Perfil;
 import com.julio.backendmc.domain.enums.TipoCliente;
 import com.julio.backendmc.repositories.CategoriaRepository;
 import com.julio.backendmc.repositories.CidadeRepository;
@@ -137,16 +138,24 @@ public class DBService {
 		Cliente cli1 = new Cliente(null, "Maria Silva", "julito.entey@gmail.com", "123456789", TipoCliente.PESSOAFISICA,
 				pe.encode("123"));
 
+		// Instanciacion de Cliente con perfil de admin
+		Cliente cli2 = new Cliente(null, "Ana Costa", "julito_entey@hotmail.com", "123456789", TipoCliente.PESSOAFISICA,
+				pe.encode("123"));
+		cli2.getTelefones().addAll(Arrays.asList("944000943", "931284612"));
+		cli2.addPerfil(Perfil.ADMIN);
+
 		// Instancia de Teledote
 		cli1.getTelefones().addAll(Arrays.asList("984123456", "994000944"));
 
 		// Instancia de Endereco
 		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apt 303", "Jardin", "3820834", cli1, c1);
 		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Salas 800", "Centro", "38777012", cli1, c2);
+		Endereco e3 = new Endereco(null, "Avenida Floriana", "255", null, "Centro", "38777012", cli2, c2);
 
 		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		cli2.getEnderecos().addAll(Arrays.asList(e3));
 
-		clienteRepository.saveAll(Arrays.asList(cli1));
+		clienteRepository.saveAll(Arrays.asList(cli1, cli2));
 		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 
 		// ------- NUEVA INSTANCIACION DE ATRIBUTOS-------
