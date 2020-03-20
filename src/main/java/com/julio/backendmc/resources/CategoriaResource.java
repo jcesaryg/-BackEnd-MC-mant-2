@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +38,7 @@ public class CategoriaResource {
 												// fue como categoria
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	// recibir una categoria en Json y agregar ese categoria @Valid sirve para poder
 	// validar el metodo
 	@RequestMapping(method = RequestMethod.POST)
@@ -50,6 +52,7 @@ public class CategoriaResource {
 		return ResponseEntity.created(uri).build();// genera codigo 201 y crea un URI
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	// Metodo Actualizar una categoria @Valid sirve para poder validar el metodo
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT) // se ingresa el Id que sera actualizado junto con el
 																	// metodo que se uzara
@@ -60,6 +63,7 @@ public class CategoriaResource {
 		return ResponseEntity.noContent().build();
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE) // agrega al request method el id para su busqueda
 																	// http://localhost:8080/categoria/1
 	public ResponseEntity<Categoria> delete(@PathVariable Integer id) {

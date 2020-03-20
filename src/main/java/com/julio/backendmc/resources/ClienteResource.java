@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,6 +61,7 @@ public class ClienteResource {
 		return ResponseEntity.noContent().build();
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE) // agrega al request method el id para su busqueda
 																	// http://localhost:8080/categoria/1
 	public ResponseEntity<Cliente> delete(@PathVariable Integer id) {
@@ -67,6 +69,7 @@ public class ClienteResource {
 		return ResponseEntity.noContent().build();
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method = RequestMethod.GET) // retornara todas las categorias
 	public ResponseEntity<List<ClienteDTO>> findAll() {
 		List<Cliente> list = service.findAll();// listara todas las categorias
@@ -75,6 +78,7 @@ public class ClienteResource {
 													// que fue como categoria
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	// localhost:8080/categorias/page?linesPerPage=3&page=1&direction=DESC
 	@RequestMapping(value = "/page", method = RequestMethod.GET) // retornara todas las categorias en un page
 	public ResponseEntity<Page<ClienteDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
