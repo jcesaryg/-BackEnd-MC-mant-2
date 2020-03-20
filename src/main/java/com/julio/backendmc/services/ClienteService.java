@@ -16,11 +16,14 @@ import org.springframework.stereotype.Service;
 import com.julio.backendmc.domain.Cidade;
 import com.julio.backendmc.domain.Cliente;
 import com.julio.backendmc.domain.Endereco;
+import com.julio.backendmc.domain.enums.Perfil;
 import com.julio.backendmc.domain.enums.TipoCliente;
 import com.julio.backendmc.dto.ClienteDTO;
 import com.julio.backendmc.dto.ClienteNewDTO;
 import com.julio.backendmc.repositories.ClienteRepository;
 import com.julio.backendmc.repositories.EnderecoRepository;
+import com.julio.backendmc.security.UserSS;
+import com.julio.backendmc.services.exceptions.AuthorizationException;
 import com.julio.backendmc.services.exceptions.DataIntegrityException;
 import com.julio.backendmc.services.exceptions.ObjectNotFoundException;
 
@@ -41,6 +44,12 @@ public class ClienteService {
 	// llamara una operacion de objeto de accesoa datos de tipo cateogira repository
 
 	public Cliente find(Integer id) {
+
+		UserSS user = UserService.authenticated();// coge el usuario logueado
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso denegado"); // lanzar una excepcion
+		}
+
 		// Optional<Cliente> encapsula el objeto instanciado
 		Optional<Cliente> obj = repo.findById(id); // retorna el onjeto por busqueda de Id
 
