@@ -1,18 +1,12 @@
 package com.julio.backendmc;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.julio.backendmc.services.S3Service;
-
 @SpringBootApplication
 public class BackEndMcApplication implements CommandLineRunner { // CommandLineRunner Permite implementar un metodo
 																	// auxiliar para ejecutar alguna opcion
-
-	@Autowired
-	private S3Service s3Service;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BackEndMcApplication.class, args);
@@ -20,6 +14,5 @@ public class BackEndMcApplication implements CommandLineRunner { // CommandLineR
 
 	@Override
 	public void run(String... args) throws Exception {
-		s3Service.uploadFile("/home/julio/Imágenes/85320.jpg");
 	}
 }
