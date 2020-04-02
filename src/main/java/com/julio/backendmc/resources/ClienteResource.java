@@ -40,6 +40,12 @@ public class ClienteResource {
 												// fue como categoria
 	}
 
+	@RequestMapping(value = "/email", method = RequestMethod.GET)
+	public ResponseEntity<Cliente> find(@RequestParam(value = "value") String email) {
+		Cliente obj = service.findByEmail(email);// llamo al servicio
+		return ResponseEntity.ok().body(obj);// regreso el objeto
+	}
+
 	// Metodo Post de cliente Resource que llama a ClienteNewDTO.java
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto) {

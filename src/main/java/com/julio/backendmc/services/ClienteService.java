@@ -105,6 +105,23 @@ public class ClienteService {
 		return repo.findAll();
 	}
 
+	// Busqueda por Email
+	public Cliente findByEmail(String email) {
+
+		// realiza Autorizacion
+		UserSS user = UserService.authenticated();
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !email.equals(user.getUsername())) {
+			throw new AuthorizationException("Acesso denegado");
+		}
+		// busca por Email
+		Cliente obj = repo.findByEmail(email);
+		if (obj == null) {
+			throw new ObjectNotFoundException(
+					"Objeto no encontrado! Id: " + user.getId() + ", Tipo: " + Cliente.class.getName());
+		}
+		return obj;
+	}
+
 	// Metodo buscar Cliente por pagina
 	public Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);// busca el
